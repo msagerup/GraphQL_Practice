@@ -4,12 +4,15 @@
   "description": "Building a GraphQL server",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Magnus Sagerup",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
+    "concurrently": "^4.1.0",
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "graphql": "^14.2.1",
