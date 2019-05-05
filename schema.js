@@ -32,6 +32,22 @@ const RocketType = new GraphQLObjectType({
         rocket_id: {type: GraphQLString},
         rocket_name: {type: GraphQLString},
         rocket_type: {type: GraphQLString},
+        first_stage: {type: FirstStage}
+    })
+})
+
+const FirstStage = new GraphQLObjectType({
+    name: 'FirstStage',
+    fields: () => ({
+        // Need to use GraphQL list here because cores is an array with objects
+        cores: {type: GraphQLList(Cores)}
+    })
+})
+
+const Cores = new GraphQLObjectType({
+    name: 'CoresInfo',
+    fields: () => ({
+        core_serial: {type: GraphQLString}
     })
 })
 
@@ -68,6 +84,29 @@ const RootQuery = new GraphQLObjectType({
                     })
             }
         },
+
+        // This is how you query spesific data with params. i.e Id numbers, names, etc.
+        // quert in GraphiQL would look like this:
+        //  {
+        //     launch(flight_number: 2) {
+        //       mission_name  --> DemoSat
+        //       flight_number --> 2
+        //     }
+        //  }
+        launch: {
+            type: LaunchType,
+            args: {
+                flight_number: {type: GraphQLInt}
+            },
+            resolve(parent, args) {
+                return axios.get(`https://api.spacexdata.com/v3/launches/${args.flight_number}`)
+                    .then (res => {
+                        return res.data
+                    })
+            }
+        },
+        // -------------------------------------------------------------------------
+
         parkering: {
             type: new GraphQLList(Parkering),
             resolve(parent, args) {
