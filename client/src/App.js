@@ -3,6 +3,8 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import './App.css';
 
+import Launches from './Components/launches';
+
 const client = new ApolloClient({
   uri: 'http://localhost:5000/graphql'
 });
@@ -10,8 +12,9 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className='App'>
+      <div className='container'>
         <h1> Space X</h1>
+        <Launches />
       </div>
     </ApolloProvider>
   );
