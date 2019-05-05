@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Moment from 'react-moment';
+import { Link } from 'react-router-dom';
 
 function LaunchItem(props) {
   const {
@@ -42,7 +43,9 @@ function LaunchItem(props) {
           </p>
         </div>
         <div className='col-md-3'>
-          <button className='btn btn-seconday'>Launch Details</button>
+          <Link to={`/launch/${flight_number}`} className='btn btn-primary'>
+            Launch Details
+          </Link>
         </div>
       </div>
     </div>
